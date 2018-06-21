@@ -110,6 +110,14 @@ forward_op = odl.tomo.RayTransform(rec_space, geometry, impl='astra_cpu')
 data_load = forward_op.range.element(np.loadtxt(path_data + name_exp))
 
 
+mini= -1
+maxi = 1
+
+
+# show noise-free data
+forward_op(ground_truth).show('noise-free data', clim=[mini, maxi])
+# show noisy data
+data_load.show('noisy data', clim=[mini, maxi])
 
 data=[data_load]
 #data=[proj_data]
