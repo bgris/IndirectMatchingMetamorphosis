@@ -14,7 +14,7 @@ namepath='barbara'
 
 ## Data parameters
 index_name_template = 1
-index_name_ground_truth = 1
+index_name_ground_truth = 0
 
 index_angle = 2
 index_maxangle = 0
@@ -25,7 +25,7 @@ index_noise = 0
 sigma = 2.0
 name_sigma=str(int(sigma))
 
-niter=300
+niter=50
 epsV=0.02
 epsZ=0.002
 ## Give regularization parameter
@@ -109,14 +109,14 @@ forward_op = odl.tomo.RayTransform(rec_space, geometry, impl='astra_cpu')
 
 data_load = forward_op.range.element(np.loadtxt(path_data + name_exp))
 
-mini= -1
-maxi = 1
+mini_data= 0
+maxi_data = 20
 
 
 # show noise-free data
-forward_op(ground_truth).show('noise-free data', clim=[mini, maxi])
+forward_op(ground_truth).show('noise-free data', clim=[mini_data, maxi_data])
 # show noisy data
-data_load.show('noisy data', clim=[mini, maxi])
+data_load.show('noisy data', clim=[mini_data, maxi_data])
 
 
 data=[data_load]
@@ -136,7 +136,6 @@ functional = meta.TemporalAttachmentMetamorphosisGeom(nb_time_point_int,
 
 X_init=functional.domain.zero()
 import IndirectMatchingMetamorphosis.Optimizer as opt
-niter=10
 X_final = opt.GradientDescent(niter, epsV, epsZ, functional, X_init)
 
 

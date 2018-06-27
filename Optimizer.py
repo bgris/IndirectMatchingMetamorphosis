@@ -14,7 +14,7 @@ def GradientDescent(niter, epsV, epsZ, functional, X_init):
     X = copy.deepcopy(X_init)
     grad_op = functional.gradient
     energy=functional(X)
-    print(" initial energy : {}, epsV = {} , epsZ = {}".format(energy,epsV, epsZ))
+    print(" initial energy : {}".format(energy))
 
     for k in range(niter):
         grad=grad_op(X)
@@ -27,7 +27,7 @@ def GradientDescent(niter, epsV, epsZ, functional, X_init):
             energy=energy_temp0
             epsV*=1.1
             epsZ*=1.1
-            print(" iter : {}  , energy : {}, epsV = {} , epsZ = {}".format(k,energy,epsV, epsZ))
+            print(" iter : {}  , energy : {}".format(k,energy))
         else:
             X_temp1=X.copy()
             X_temp1[0]= (X[0]- epsV *grad[0]).copy()
@@ -64,8 +64,8 @@ def GradientDescent(niter, epsV, epsZ, functional, X_init):
                 energy=energy_temp0
                 epsV *= 1.1
                 epsZ *= 1.1
-                print(" iter : {}  , energy : {}, epsV = {} , epsZ = {}".format(k,energy,epsV, epsZ))
+                print(" iter : {}  , energy : {}".format(k,energy,epsV, epsZ))
             else:
-                print("epsV = {} , epsZ = {}".format(epsV, epsZ))
+                print("iter : {}, reducing steps".format(k))
 
     return X
